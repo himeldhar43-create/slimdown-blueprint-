@@ -1,0 +1,6 @@
+{
+  "name": "Slimdown Blueprint",
+  "description": "A premium e-commerce platform and feminine wellness guide engineered for natural weight loss, digestive health, and home wellness routines.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
