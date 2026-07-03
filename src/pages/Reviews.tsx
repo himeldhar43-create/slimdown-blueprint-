@@ -2,51 +2,9 @@ import React, { useState } from 'react';
 import { Star, CheckCircle2, MessageSquarePlus, Sparkles, ShieldCheck } from 'lucide-react';
 import { Review } from '../types';
 
-import jenniferImg from '../assets/images/review_woman_jennifer_v2_1783059721207.jpg';
-import sarahImg from '../assets/images/review_woman_sarah_v2_1783059733872.jpg';
-import samanthaImg from '../assets/images/review_woman_samantha_v2_1783059746713.jpg';
-import lindaImg from '../assets/images/review_woman_linda_v2_1783059761033.jpg';
-
 export default function Reviews() {
-  // Pre-loaded realistic verified customer reviews
-  const [reviews, setReviews] = useState<Review[]>([
-    {
-      name: 'Jennifer C. (Age 36)',
-      rating: 5,
-      date: 'June 24, 2026',
-      verified: true,
-      comment: 'The 21-Day Smoothie Slim-Down was the perfect reset. I used to feel so sluggish and bloated by mid-afternoon. Within 5 days of starting the green breakfast smoothie, my digestion was completely quiet and comfortable. Highly recommend!',
-      productName: 'The 21-Day Smoothie Slim-Down',
-      avatar: jenniferImg,
-    },
-    {
-      name: 'Sarah M. (Age 45)',
-      rating: 5,
-      date: 'June 18, 2026',
-      verified: true,
-      comment: 'I love that the 4-Week Weight Loss Kickstart doesn’t require high-intensity workouts. I have minor knee pain and these low-impact exercises are gentle, rewarding, and easy to finish inside my living room. I already feel tighter and stronger.',
-      productName: '4-Week Weight Loss Kickstart',
-      avatar: sarahImg,
-    },
-    {
-      name: 'Samantha R. (Age 29)',
-      rating: 5,
-      date: 'June 11, 2026',
-      verified: true,
-      comment: 'The Complete Bundle is worth every single penny. The recipes are so delicious, my husband actually eats them too! The habit tracker and weekly shopping templates kept me organized. Lost 8 lbs and feel amazing!',
-      productName: 'Complete Transformation Bundle',
-      avatar: samanthaImg,
-    },
-    {
-      name: 'Linda T. (Age 52)',
-      rating: 4,
-      date: 'June 03, 2026',
-      verified: true,
-      comment: 'The nutrition strategy inside the 10-Week Guide is incredibly eye-opening. It is high-protein and hormone-conscious, which works perfectly for menopause. The layout is easy to read and print. Gave it 4 stars only because I wish there were more seafood options, but overall a stellar guide.',
-      productName: '10-Week Transformation Guide',
-      avatar: lindaImg,
-    },
-  ]);
+  // Verified customer reviews (starts empty so you can add manually)
+  const [reviews, setReviews] = useState<Review[]>([]);
 
   // Form states
   const [formName, setFormName] = useState('');
@@ -59,9 +17,6 @@ export default function Reviews() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formName.trim() && formComment.trim()) {
-      const avatars = [jenniferImg, sarahImg, samanthaImg, lindaImg];
-      const randomAvatar = avatars[Math.floor(Math.random() * avatars.length)];
-      
       const newReview: Review = {
         name: `${formName} (Age ${formAge || '30'})`,
         rating: formRating,
@@ -69,7 +24,7 @@ export default function Reviews() {
         verified: false, // Set to false to show vetting warning
         comment: formComment,
         productName: formProduct,
-        avatar: randomAvatar,
+        avatar: undefined,
       };
 
       setReviews([newReview, ...reviews]);
@@ -109,14 +64,16 @@ export default function Reviews() {
         {/* 1. Global Verification Dashboard */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-16 bg-white p-8 sm:p-10 rounded-3xl border border-gray-100 shadow-sm items-center" id="reviews-dashboard">
           <div className="md:col-span-4 text-center border-b md:border-b-0 md:border-r border-gray-100 pb-6 md:pb-0 md:pr-6">
-            <div className="font-heading font-extrabold text-5xl sm:text-6xl text-[#0F6E56]">4.9</div>
+            <div className="font-heading font-extrabold text-5xl sm:text-6xl text-[#0F6E56]">
+              {reviews.length > 0 ? (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1) : '5.0'}
+            </div>
             <div className="flex justify-center gap-1 my-3 text-[#F5C96A]">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-5 h-5 fill-[#F5C96A] text-[#F5C96A]" />
               ))}
             </div>
             <p className="font-sans text-xs text-gray-400 font-semibold tracking-wider uppercase">
-              12,400+ Total Digital Downloads
+              Verified Community Feedback
             </p>
           </div>
 
@@ -143,66 +100,76 @@ export default function Reviews() {
               Recent Feedback Board
             </h3>
 
-            {reviews.map((rev, idx) => (
-              <div
-                key={idx}
-                id={`review-item-${idx}`}
-                className="bg-white p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-sm transition-all hover:shadow-md"
-              >
-                <div className="flex items-start gap-4 mb-4">
-                  {rev.avatar ? (
-                    <img
-                      src={rev.avatar}
-                      alt={rev.name}
-                      referrerPolicy="no-referrer"
-                      className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-[#1D9E75]/20 shadow-sm shrink-0"
-                    />
-                  ) : (
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#1D9E75]/10 border-2 border-[#1D9E75]/20 flex items-center justify-center font-heading font-bold text-[#0F6E56] text-base shrink-0">
-                      {rev.name.charAt(0)}
-                    </div>
-                  )}
-                  <div className="flex-grow min-w-0">
-                    <div className="flex flex-wrap justify-between items-start gap-2">
-                      <div>
-                        <h4 className="font-heading font-bold text-sm sm:text-base text-[#333333]">{rev.name}</h4>
-                        <span className="font-sans text-[10px] bg-gray-100 px-2 py-0.5 rounded text-gray-500 font-medium inline-block mt-1">
-                          {rev.productName}
-                        </span>
-                      </div>
-                      <span className="font-sans text-[11px] text-gray-400">{rev.date}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Rating Stars & Verification Badge */}
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="flex gap-0.5 text-[#F5C96A]">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-4 h-4 ${
-                          i < rev.rating ? 'fill-[#F5C96A] text-[#F5C96A]' : 'text-gray-200'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  {rev.verified ? (
-                    <span className="flex items-center gap-1 text-[10px] font-sans font-bold tracking-wider text-[#1D9E75] uppercase bg-[#1D9E75]/5 px-2.5 py-1 rounded-full border border-[#1D9E75]/10">
-                      <CheckCircle2 className="w-3.5 h-3.5 fill-[#1D9E75] text-white" /> Verified Purchase
-                    </span>
-                  ) : (
-                    <span className="text-[10px] font-sans font-semibold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-100">
-                      ⌛ Pending Verification
-                    </span>
-                  )}
-                </div>
-
-                <p className="font-sans text-xs sm:text-sm text-gray-500 leading-relaxed italic">
-                  "{rev.comment}"
+            {reviews.length === 0 ? (
+              <div className="bg-white p-8 sm:p-10 rounded-2xl border border-gray-100 shadow-sm text-center py-14">
+                <MessageSquarePlus className="w-10 h-10 text-[#1D9E75]/40 mx-auto mb-3" />
+                <p className="font-heading font-bold text-[#0F6E56] text-base mb-1">No Reviews Yet</p>
+                <p className="font-sans text-xs text-gray-500 max-w-sm mx-auto leading-relaxed">
+                  Be the first to share your experience! Submit your review using the form on the right.
                 </p>
               </div>
-            ))}
+            ) : (
+              reviews.map((rev, idx) => (
+                <div
+                  key={idx}
+                  id={`review-item-${idx}`}
+                  className="bg-white p-6 sm:p-8 rounded-2xl border border-gray-100 shadow-sm transition-all hover:shadow-md"
+                >
+                  <div className="flex items-start gap-4 mb-4">
+                    {rev.avatar ? (
+                      <img
+                        src={rev.avatar}
+                        alt={rev.name}
+                        referrerPolicy="no-referrer"
+                        className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-[#1D9E75]/20 shadow-sm shrink-0"
+                      />
+                    ) : (
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#1D9E75]/10 border-2 border-[#1D9E75]/20 flex items-center justify-center font-heading font-bold text-[#0F6E56] text-base shrink-0">
+                        {rev.name.charAt(0)}
+                      </div>
+                    )}
+                    <div className="flex-grow min-w-0">
+                      <div className="flex flex-wrap justify-between items-start gap-2">
+                        <div>
+                          <h4 className="font-heading font-bold text-sm sm:text-base text-[#333333]">{rev.name}</h4>
+                          <span className="font-sans text-[10px] bg-gray-100 px-2 py-0.5 rounded text-gray-500 font-medium inline-block mt-1">
+                            {rev.productName}
+                          </span>
+                        </div>
+                        <span className="font-sans text-[11px] text-gray-400">{rev.date}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Rating Stars & Verification Badge */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="flex gap-0.5 text-[#F5C96A]">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`w-4 h-4 ${
+                            i < rev.rating ? 'fill-[#F5C96A] text-[#F5C96A]' : 'text-gray-200'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    {rev.verified ? (
+                      <span className="flex items-center gap-1 text-[10px] font-sans font-bold tracking-wider text-[#1D9E75] uppercase bg-[#1D9E75]/5 px-2.5 py-1 rounded-full border border-[#1D9E75]/10">
+                        <CheckCircle2 className="w-3.5 h-3.5 fill-[#1D9E75] text-white" /> Verified Purchase
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-sans font-semibold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-100">
+                        ⌛ Pending Verification
+                      </span>
+                    )}
+                  </div>
+
+                  <p className="font-sans text-xs sm:text-sm text-gray-500 leading-relaxed italic">
+                    "{rev.comment}"
+                  </p>
+                </div>
+              ))
+            )}
           </div>
 
           {/* Right: Submit Review Form (5 Columns) */}

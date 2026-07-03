@@ -59,7 +59,8 @@ Rich in polyphenols and antioxidants, this berry-forward smoothie is incredibly 
 ### Key Tips for the Perfect Smoothie:
 1.  **Don't drink it too fast:** Take small sips over 10–15 minutes. Gulping cold liquids quickly can actually introduce air into your stomach and cause bloating.
 2.  **Keep sugar low:** Avoid adding orange juice, honey, or excessive bananas. High sugar spikes insulin, which can trigger water retention.
-3.  **Blend completely:** Ensure any fibrous greens are completely pulverized so your digestive enzymes can do their job with ease.`
+3.  **Blend completely:** Ensure any fibrous greens are completely pulverized so your digestive enzymes can do their job with ease.`,
+    relatedProducts: ['smoothie-slim-down', 'bundle']
   },
   {
     slug: 'weight-loss-tips-career-women',
@@ -93,7 +94,8 @@ When ordering lunch or dining at business meetings, avoid the trap of high-glyce
 ### 3. The 10-Minute Evening Boundary
 Working late on a glowing blue screen disrupts melatonin production, which spikes cortisol the next morning and causes intense sugar cravings.
 *   **Create a Buffer Zone:** Turn off work notifications at least 1 hour before bed.
-*   **Wind Down:** Spend 5–10 minutes reading a physical book, doing light stretching, or journaling. Quality sleep is the single most under-utilized fat loss tool available to busy women.`
+*   **Wind Down:** Spend 5–10 minutes reading a physical book, doing light stretching, or journaling. Quality sleep is the single most under-utilized fat loss tool available to busy women.`,
+    relatedProducts: ['10-week-transformation', '4-week-kickstart']
   },
   {
     slug: 'beginner-home-moves-strength',
@@ -162,7 +164,8 @@ This classic core exercise builds spinal stability and pelvic strength with zero
     2.  Extend your right arm straight forward and your left leg straight back. Squeeze your glute and pull your toes toward your shin.
     3.  Hold for 2 seconds, maintaining a level pelvis.
     4.  Return to center and switch sides (left arm, right leg).
-    5.  Perform 10 reps per side.`
+    5.  Perform 10 reps per side.`,
+    relatedProducts: ['4-week-kickstart', '10-week-transformation']
   },
   {
     slug: 'meal-planning-made-simple',
@@ -216,6 +219,7 @@ Store-bought dressings are often packed with inflammatory seed oils (canola, soy
 ### How to Assemble Your Plates in Under 5 Minutes:
 *   **Option A (Warm Nourish Bowl):** Heat 1 cup of roasted veggies, toss in a serving of sliced chicken, lay over a bed of fresh spinach, drizzle with your citrus dressing, and top with 1/4 sliced avocado.
 *   **Option B (Rapid Wellness Wrap):** Place baby greens, roasted bell peppers, and tofu/chicken inside a gluten-free or low-carb wrap, spread a tablespoon of hummus, roll, and enjoy.
-*   **Option C (Quick Skillet Scramble):** Toss a handful of roasted veggies and pre-cooked protein into a pan, crack 2 organic eggs, scramble for 2 minutes, and serve with fresh herbs.`
+*   **Option C (Quick Skillet Scramble):** Toss a handful of roasted veggies and pre-cooked protein into a pan, crack 2 organic eggs, scramble for 2 minutes, and serve with fresh herbs.`,
+    relatedProducts: ['bundle', 'smoothie-slim-down']
   }
 ];

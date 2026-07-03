@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, ShieldCheck, Zap, Sparkles, Heart, Star } from 'lucide-react';
+import { ChevronRight, ShieldCheck, Zap, Sparkles, Heart } from 'lucide-react';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
-import meganImg from '../assets/images/review_woman_megan_v2_1783059772956.jpg';
 
 export default function Home() {
   const [email, setEmail] = useState('');
@@ -34,8 +33,8 @@ export default function Home() {
               <Sparkles className="w-3.5 h-3.5" /> A Smarter Approach to Slimming Down
             </span>
             <h1 className="font-heading font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-tight">
-              Reclaim Your Energy, <br />
-              <span className="text-[#F5C96A]">Reduce Bloating</span> Naturally.
+              Lose Weight Without <br />
+              <span className="text-[#F5C96A]">Starving Yourself.</span>
             </h1>
             <p className="mt-6 text-base sm:text-lg font-sans text-gray-200 leading-relaxed max-w-lg">
               No crash dieting. No extreme workouts. Just hormone-conscious nutrition templates and gentle, metabolic guidelines designed specifically for women.
@@ -61,7 +60,7 @@ export default function Home() {
             {/* Quick trust metrics */}
             <div className="mt-12 grid grid-cols-3 gap-6 pt-8 border-t border-white/10 max-w-md">
               <div>
-                <div className="font-heading font-bold text-xl sm:text-2xl text-[#F5C96A]">12K+</div>
+                <div className="font-heading font-bold text-xl sm:text-2xl text-[#F5C96A]">1K+</div>
                 <div className="text-xs font-sans text-gray-300">Happy Customers</div>
               </div>
               <div>
@@ -196,31 +195,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. Highlight Testimonial Card */}
-      <section className="py-20 bg-white" id="testimonial-highlight">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <img
-            src={meganImg}
-            alt="Megan S."
-            referrerPolicy="no-referrer"
-            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-[#1D9E75]/20 shadow-md mx-auto mb-6"
-          />
-          <div className="flex justify-center gap-1 mb-4 text-[#F5C96A]" id="testimonial-stars">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-5 h-5 fill-[#F5C96A]" />
-            ))}
-          </div>
-          <blockquote className="font-heading font-medium text-lg sm:text-xl md:text-2xl text-[#0F6E56] italic leading-relaxed">
-            "I was so tired of extreme fitness coaches telling me to starve myself. The 21-Day Smoothie program flat-out changed my digestion. I lost 6 pounds, my bloating is entirely gone, and I am actually full and happy!"
-          </blockquote>
-          <div className="mt-6">
-            <p className="font-sans font-bold text-sm text-[#333333]">Megan S. (Age 34)</p>
-            <p className="text-xs font-sans text-gray-400 mt-1">Verified Buyer • Lost 6 lbs & 2 inches</p>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. Newsletter Signup with Success State */}
+      {/* 5. Newsletter Signup with Success State */}
       <section className="py-20 sm:py-28 bg-[#0F6E56] text-white" id="newsletter-signup-section">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="text-[#F5C96A] text-xs font-sans font-bold uppercase tracking-widest">

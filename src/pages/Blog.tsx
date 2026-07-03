@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { blogPosts } from '../data/blog';
+import { products } from '../data/products';
 import { Calendar, User, Clock, ChevronRight, BookOpen, Sparkles, ArrowLeft } from 'lucide-react';
 
 export default function Blog() {
@@ -27,6 +28,9 @@ export default function Blog() {
         </div>
       );
     }
+
+    const recommendedSlugs = post.relatedProducts || ['smoothie-slim-down', 'bundle'];
+    const recommendedProducts = products.filter((p) => recommendedSlugs.includes(p.slug));
 
     return (
       <article className="bg-[#FAFAF8] min-h-screen py-12 sm:py-20" id={`blog-read-${post.slug}`}>
@@ -149,24 +153,50 @@ export default function Blog() {
             })}
           </div>
 
-          {/* Article Footer Card promoting e-commerce products */}
-          <div className="mt-16 bg-[#0F6E56]/5 p-8 rounded-3xl border border-[#0F6E56]/10 text-center" id="blog-cta-card">
+          {/* Article Footer Card promoting relevant e-commerce products */}
+          <div className="mt-16 bg-[#0F6E56]/5 p-6 sm:p-10 rounded-3xl border border-[#0F6E56]/10 text-center" id="blog-cta-card">
             <span className="text-[#1D9E75] text-[10px] font-sans font-bold uppercase tracking-widest">
-              NEXT STEP ON YOUR PATH
+              RECOMMENDED FOR YOU
             </span>
-            <h3 className="font-heading font-extrabold text-xl text-[#0F6E56] mt-2 mb-3">
-              Ready to take action and clear abdominal bloat?
+            <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-[#0F6E56] mt-2 mb-3">
+              Take Action With Our Targeted Blueprints
             </h3>
-            <p className="font-sans text-xs sm:text-sm text-gray-500 max-w-md mx-auto mb-6">
-              Our <strong>21-Day Smoothie Slim-Down</strong> has helped thousands of busy women kick bloating, reset gut health, and restore glowing morning energy.
+            <p className="font-sans text-xs sm:text-sm text-gray-500 max-w-lg mx-auto mb-8">
+              Explore the exact downloadable guides paired with this article to accelerate your progress, optimize hormones, and achieve lasting results.
             </p>
-            <Link
-              to="/products/smoothie-slim-down"
-              className="bg-[#1D9E75] hover:bg-[#0F6E56] text-white px-6 py-3 rounded-full font-sans font-bold text-xs uppercase tracking-widest inline-flex items-center gap-1.5 transition-colors"
-            >
-              Get The Smoothie Guide
-              <ChevronRight className="w-4 h-4" />
-            </Link>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-4xl mx-auto">
+              {recommendedProducts.map((prod) => (
+                <div
+                  key={prod.slug}
+                  className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-all"
+                >
+                  <div>
+                    <span className="text-[10px] font-sans font-bold text-[#1D9E75] uppercase tracking-wider bg-[#1D9E75]/10 px-2.5 py-1 rounded-full inline-block mb-3">
+                      {prod.isBundle ? 'Complete System' : 'Featured Guide'}
+                    </span>
+                    <h4 className="font-heading font-bold text-base sm:text-lg text-[#333333] mb-2">
+                      {prod.title}
+                    </h4>
+                    <p className="font-sans text-xs text-gray-500 line-clamp-3 mb-6 leading-relaxed">
+                      {prod.description}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                    <span className="font-heading font-extrabold text-lg text-[#0F6E56]">
+                      ${prod.price.toFixed(2)}
+                    </span>
+                    <Link
+                      to={`/products/${prod.slug}`}
+                      className="bg-[#1D9E75] hover:bg-[#0F6E56] text-white px-5 py-2.5 rounded-full font-sans font-bold text-xs uppercase tracking-wider inline-flex items-center gap-1.5 transition-colors"
+                    >
+                      View Guide
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
         </div>

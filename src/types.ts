@@ -31,6 +31,7 @@ export interface BlogPost {
   excerpt: string;
   content: string;
   image: string;
+  relatedProducts?: string[];
 }
 
 export interface Review {
