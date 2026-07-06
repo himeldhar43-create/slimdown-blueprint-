@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Star, CheckCircle2, MessageSquarePlus, Sparkles, ShieldCheck } from 'lucide-react';
 import { Review } from '../types';
+import { initialReviews } from '../data/reviews';
 
 export default function Reviews() {
-  // Verified customer reviews (starts empty so you can add manually)
-  const [reviews, setReviews] = useState<Review[]>([]);
+  // Verified customer reviews
+  const [reviews, setReviews] = useState<Review[]>(initialReviews);
 
   // Form states
   const [formName, setFormName] = useState('');

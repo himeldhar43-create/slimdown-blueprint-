@@ -1,21 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, ShieldCheck, Zap, Sparkles, Heart } from 'lucide-react';
+import { ChevronRight, ShieldCheck, Zap, Sparkles, Heart, Star, CheckCircle2 } from 'lucide-react';
 import { products } from '../data/products';
+import { initialReviews } from '../data/reviews';
 import ProductCard from '../components/ProductCard';
+import KitNewsletterForm from '../components/KitNewsletterForm';
 
 export default function Home() {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
-      setEmail('');
-    }
-  };
-
   return (
     <div className="bg-[#FAFAF8] min-h-screen" id="home-page">
       {/* 1. Cinematic Hero Section */}
@@ -195,7 +186,76 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. Newsletter Signup with Success State */}
+      {/* 5. Verified Customer Reviews */}
+      <section className="py-20 bg-white border-b border-gray-100" id="home-reviews-section">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12">
+            <div>
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#1D9E75] flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-[#1D9E75]" /> VERIFIED COMMUNITY
+              </span>
+              <h2 className="font-heading font-extrabold text-3xl text-[#0F6E56] mt-2">
+                What Women Are Saying
+              </h2>
+            </div>
+            <Link
+              to="/reviews"
+              id="view-all-reviews-link"
+              className="mt-4 md:mt-0 font-sans font-bold text-xs uppercase tracking-widest text-[#1D9E75] hover:text-[#0F6E56] transition-colors flex items-center gap-1.5"
+            >
+              Read All Verified Reviews
+              <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {initialReviews.map((rev, idx) => (
+              <div
+                key={idx}
+                id={`home-review-card-${idx}`}
+                className="bg-[#FAFAF8] p-8 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow"
+              >
+                <div>
+                  <div className="flex justify-between items-start gap-4 mb-4">
+                    <div className="flex items-center gap-3">
+                      {rev.avatar && (
+                        <img
+                          src={rev.avatar}
+                          alt={rev.name}
+                          referrerPolicy="no-referrer"
+                          className="w-12 h-12 rounded-full object-cover border-2 border-[#1D9E75]/20 shadow-sm"
+                        />
+                      )}
+                      <div>
+                        <h4 className="font-heading font-bold text-base text-[#333333]">{rev.name}</h4>
+                        <span className="font-sans text-[11px] bg-white px-2.5 py-0.5 rounded-full text-gray-600 font-medium border border-gray-200 inline-block mt-0.5">
+                          {rev.productName}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex gap-0.5 text-[#F5C96A]">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-[#F5C96A] text-[#F5C96A]" />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="font-sans text-sm text-gray-600 leading-relaxed italic mb-6">
+                    "{rev.comment}"
+                  </p>
+                </div>
+                <div className="flex items-center justify-between border-t border-gray-200/60 pt-4 mt-auto">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-sans font-bold text-[#1D9E75]">
+                    <CheckCircle2 className="w-3.5 h-3.5" /> Verified Payhip Receipt
+                  </span>
+                  <span className="text-[11px] font-sans text-gray-400">{rev.date}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Newsletter Signup with Success State */}
       <section className="py-20 sm:py-28 bg-[#0F6E56] text-white" id="newsletter-signup-section">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="text-[#F5C96A] text-xs font-sans font-bold uppercase tracking-widest">
@@ -208,37 +268,8 @@ export default function Home() {
             Subscribe to our weekly newsletter to receive hormone-safe healthy recipes, beginner metabolic workouts, and exclusive coupon codes straight to your inbox.
           </p>
 
-          {subscribed ? (
-            <div
-              id="newsletter-success-toast"
-              className="bg-[#1D9E75]/30 border border-[#1D9E75]/50 p-6 rounded-2xl max-w-lg mx-auto"
-            >
-              <h3 className="font-heading font-bold text-lg text-[#F5C96A] mb-1">
-                🎉 Welcome to the Community!
-              </h3>
-              <p className="font-sans text-xs text-gray-100">
-                Check your inbox! We've just dispatched the **Anti-Bloat 101 Grocery List** to you.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" id="newsletter-form">
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address..."
-                className="flex-grow bg-white/10 border border-white/20 rounded-xl px-5 py-3.5 text-sm font-sans focus:outline-none focus:ring-2 focus:ring-[#F5C96A] placeholder-gray-300 text-white"
-              />
-              <button
-                type="submit"
-                id="newsletter-submit-btn"
-                className="bg-[#1D9E75] hover:bg-[#15805e] text-white rounded-xl px-7 py-3.5 font-sans font-bold text-xs uppercase tracking-widest transition-colors shadow-md"
-              >
-                Send My Gift
-              </button>
-            </form>
-          )}
+          <KitNewsletterForm />
+
           <p className="text-[10px] text-gray-300 font-sans mt-4">
             We value your privacy. Unsubscribe at any time. No spam, ever.
           </p>
